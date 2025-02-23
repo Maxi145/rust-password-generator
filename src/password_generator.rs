@@ -1,4 +1,5 @@
 use rand::Rng;
+use rand::prelude::SliceRandom;
 
 pub trait PasswordGenerator {
     fn generate_password(&self, length: usize) -> String;
@@ -39,27 +40,35 @@ impl ComplexPasswordGenerator {
 impl PasswordGenerator for ComplexPasswordGenerator {
     fn generate_password(&self, length: usize) -> String {
         let mut chars = String::new();
+        let mut password = String::with_capacity(length);
+        let mut rng = rand::rng();
+
+        // Ensure at least one character from each selected category
         if self.include_uppercase {
             chars.push_str(&self.characters.uppercase);
+            password.push(self.characters.uppercase.chars().nth(rng.random_range(0..self.characters.uppercase.len())).unwrap());
         }
         if self.include_lowercase {
             chars.push_str(&self.characters.lowercase);
+            password.push(self.characters.lowercase.chars().nth(rng.random_range(0..self.characters.lowercase.len())).unwrap());
         }
         if self.include_numbers {
             chars.push_str(&self.characters.numbers);
+            password.push(self.characters.numbers.chars().nth(rng.random_range(0..self.characters.numbers.len())).unwrap());
         }
         if self.include_symbols {
             chars.push_str(&self.characters.symbols);
+            password.push(self.characters.symbols.chars().nth(rng.random_range(0..self.characters.symbols.len())).unwrap());
         }
 
-        let mut rng = rand::rng();
-        let mut password = String::with_capacity(length);
-
-        for _ in 0..length {
+        for _ in password.len()..length {
             let idx = rng.random_range(0..chars.len());
-            password.push(chars.as_bytes()[idx] as char);
+            password.push(chars.chars().nth(idx).unwrap());
         }
 
-        password
+        // Shuffle the password to ensure randomness
+        let mut password_chars: Vec<char> = password.chars().collect();
+        password_chars.shuffle(&mut rng);
+        password_chars.iter().collect()
     }
 }
