@@ -19,19 +19,22 @@ A simple and efficient password generator built with Rust and Egui. Generate sec
 ![Generated Passwords](https://github.com/user-attachments/assets/aaa8d9d9-c736-4bc2-969d-17b4278c870b)
 
 ## How to use
-1. Download and Install: Download the latest release from the [Releases](https://github.com/Maxi145/rust-password-generator/releases) page. Choose the appropriate version for your system (x64 or x86).
+1. Download and Install:
+   - Download the latest release from the [Releases](https://github.com/Maxi145/rust-password-generator/releases) page. Choose the appropriate version for your system (x64 or x86).
 
-2. Run the Application: Double-click the downloaded executable to run the password generator.
+3. Run the Application:
+   - Double-click the downloaded executable to run the password generator.
 
-3. Customize Settings:
+4. Customize Settings:
 
    - Adjust the password length using the slider.
    - Check or uncheck the options to include uppercase letters, lowercase letters, numbers, and symbols.
    - Set the number of passwords to generate.
 
-4. Generate Passwords: Click the "🔄 Generate Passwords" button to generate the passwords.
+5. Generate Passwords:
+   - Click the "🔄 Generate Passwords" button to generate the passwords.
 
-5. Copy Passwords:
+6. Copy Passwords:
 
    - Right-click on an individual password to copy it to the clipboard.
    - Click the "📋 Copy All Passwords" button to copy all generated passwords to the clipboard.
@@ -41,7 +44,7 @@ To build the password generator from source, follow these steps:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/password-generator.git
+   git clone https://github.com/Maxi145/password-generator.git
    cd password-generator
 2. Install Rust Toolchain: Ensure you have the necessary Rust toolchains installed:
    ```sh
