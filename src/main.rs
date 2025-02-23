@@ -14,6 +14,7 @@ struct AppState {
     generated_passwords: Vec<String>,
     password_generator: Box<dyn PasswordGenerator>,
     copied_password: Option<String>,
+    all_passwords_copied: bool,
 }
 
 impl AppState {
@@ -26,8 +27,9 @@ impl AppState {
             include_symbols: false,
             num_passwords: 1,
             generated_passwords: Vec::new(),
-            password_generator: Box::new(ComplexPasswordGenerator::new(false, false, false, false)),
+            password_generator: Box::new(ComplexPasswordGenerator::new(true, true, false, false)),
             copied_password: None,
+            all_passwords_copied: false,
         }
     }
 
@@ -145,6 +147,7 @@ impl eframe::App for AppState {
                         .corner_radius(6.0);
 
                         if ui.add_enabled(self.is_generation_enabled(), generate_passwords_button).clicked() {
+                            self.all_passwords_copied = false;
                             self.update_generator();
                             self.generated_passwords = (0..self.num_passwords)
                                 .map(|_| self.password_generator.generate_password(self.password_length))
@@ -162,7 +165,9 @@ impl eframe::App for AppState {
                         if ui.add_enabled(!self.generated_passwords.is_empty(), copy_all_passwords_button).clicked() {
                             let all_passwords = self.generated_passwords.join("\n");
                             ui.ctx().copy_text(all_passwords);
+                            self.all_passwords_copied = true;
                         }
+            
                     });
             });
 
@@ -193,9 +198,10 @@ impl eframe::App for AppState {
                                                 if response.secondary_clicked() {
                                                     ui.ctx().copy_text(password.clone());
                                                     self.copied_password = Some(password.clone());
+                                                    self.all_passwords_copied = false;
                                                 }
 
-                                                if Some(password) == self.copied_password.as_ref() {
+                                                if self.all_passwords_copied || Some(password) == self.copied_password.as_ref() {
                                                     ui.label(egui::RichText::new("✅").color(PRIMARY_COLOR));
                                                 }
                                             });

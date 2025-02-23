@@ -1,8 +1,14 @@
 use rand::Rng;
-use std::fs;
 
 pub trait PasswordGenerator {
     fn generate_password(&self, length: usize) -> String;
+}
+
+pub struct Characters {
+    pub uppercase: String,
+    pub lowercase: String,
+    pub numbers: String,
+    pub symbols: String,
 }
 
 pub struct ComplexPasswordGenerator {
@@ -13,30 +19,21 @@ pub struct ComplexPasswordGenerator {
     pub characters: Characters,
 }
 
-#[derive(serde::Deserialize)]
-pub struct Characters {
-    pub uppercase: String,
-    pub lowercase: String,
-    pub numbers: String,
-    pub symbols: String,
-}
-
 impl ComplexPasswordGenerator {
     pub fn new(include_uppercase: bool, include_lowercase: bool, include_numbers: bool, include_symbols: bool) -> Self {
-        let config: Config = toml::from_str(&fs::read_to_string("config.toml").expect("Failed to read config file")).expect("Failed to parse config file");
         Self {
             include_uppercase,
             include_lowercase,
             include_numbers,
             include_symbols,
-            characters: config.characters,
+            characters: Characters {
+                uppercase: String::from("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+                lowercase: String::from("abcdefghijklmnopqrstuvwxyz"),
+                numbers: String::from("0123456789"),
+                symbols: String::from("!@#$%^&*()"),
+            },
         }
     }
-}
-
-#[derive(serde::Deserialize)]
-struct Config {
-    characters: Characters,
 }
 
 impl PasswordGenerator for ComplexPasswordGenerator {
@@ -56,11 +53,13 @@ impl PasswordGenerator for ComplexPasswordGenerator {
         }
 
         let mut rng = rand::rng();
-        (0..length)
-            .map(|_| {
-                let idx = rng.random_range(0..chars.len());
-                chars.chars().nth(idx).unwrap()
-            })
-            .collect()
+        let mut password = String::with_capacity(length);
+
+        for _ in 0..length {
+            let idx = rng.random_range(0..chars.len());
+            password.push(chars.as_bytes()[idx] as char);
+        }
+
+        password
     }
 }
