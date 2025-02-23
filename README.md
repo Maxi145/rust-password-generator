@@ -16,7 +16,7 @@ A simple and efficient password generator built with Rust and Egui. Generate sec
 
 ### **Generated Passwords**
 
-![Generated Passwords](https://github.com/user-attachments/assets/aaa8d9d9-c736-4bc2-969d-17b4278c870b)
+![Generated Passwords](https://github.com/user-attachments/assets/61cc5fbd-c176-42f5-adaf-6c29df9c48b4)
 
 ## How to use
 1. Download and Install:
