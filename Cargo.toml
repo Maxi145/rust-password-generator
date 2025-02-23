@@ -1,0 +1,12 @@
+[package]
+name = "password-generator"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+egui = "0.31.0"  # Check for the latest version
+eframe = "0.31.0"  # Check for the latest version
+rand = "0.9.0"  # Check for the latest version
+toml = "0.8.20"
+serde = { version = "1.0.218", features = ["derive"] }
+image = "0.25.5"
