@@ -61,4 +61,3 @@ To build the password generator from source, follow these steps:
    ```sh
    ./target/x86_64-pc-windows-msvc/release/password-generator.exe
    
-   
