@@ -43,7 +43,6 @@ impl PasswordGenerator for ComplexPasswordGenerator {
         let mut password = String::with_capacity(length);
         let mut rng = rand::rng();
 
-        // Ensure at least one character from each selected category
         if self.include_uppercase {
             chars.push_str(&self.characters.uppercase);
             password.push(self.characters.uppercase.chars().nth(rng.random_range(0..self.characters.uppercase.len())).unwrap());
