@@ -66,7 +66,6 @@ impl PasswordGenerator for ComplexPasswordGenerator {
             password.push(chars.chars().nth(idx).unwrap());
         }
 
-        // Shuffle the password to ensure randomness
         let mut password_chars: Vec<char> = password.chars().collect();
         password_chars.shuffle(&mut rng);
         password_chars.iter().collect()
