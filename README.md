@@ -36,7 +36,7 @@ A simple and efficient password generator built with Rust and Egui. Generate sec
 
 6. Copy Passwords:
 
-   - Right-click on an individual password to copy it to the clipboard.
+   - Left-click on an individual password to copy it to the clipboard.
    - Click the "📋 Copy All Passwords" button to copy all generated passwords to the clipboard.
 
 ## Building from Source
