@@ -44,7 +44,7 @@ To build the password generator from source, follow these steps:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/Maxi145/password-generator.git
+   git clone https://github.com/Maxi145/rust-password-generator.git
    cd password-generator
 2. Install Rust Toolchain: Ensure you have the necessary Rust toolchains installed:
    ```sh
