@@ -195,7 +195,7 @@ impl eframe::App for AppState {
                                                 ui.set_width(ui.available_width());
                                                 let response = ui.monospace(password);
                                                 
-                                                if response.secondary_clicked() {
+                                                if response.clicked() {
                                                     ui.ctx().copy_text(password.clone());
                                                     self.copied_password = Some(password.clone());
                                                     self.all_passwords_copied = false;
