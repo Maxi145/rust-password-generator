@@ -1,6 +1,6 @@
 # Password Generator 🦀
 
-A simple and efficient password generator built with Rust and Egui. Generate secure passwords with customizable options for uppercase letters, lowercase letters, numbers, and symbols.
+A simple and efficient password generator built with Rust and Egui. Generate passwords with customizable options for uppercase letters, lowercase letters, numbers, and symbols.
 
 ## Features
 
