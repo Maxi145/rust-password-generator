@@ -1,10 +1,4 @@
-use rand::Rng;
-use rand::prelude::SliceRandom;
-
-pub trait PasswordGenerator {
-    fn generate_password(&self, length: usize) -> String;
-}
-
+use rand::prelude::{SliceRandom, IteratorRandom}; 
 pub struct Characters {
     pub uppercase: String,
     pub lowercase: String,
@@ -35,37 +29,33 @@ impl ComplexPasswordGenerator {
             },
         }
     }
-}
-
-impl PasswordGenerator for ComplexPasswordGenerator {
-    fn generate_password(&self, length: usize) -> String {
+    pub fn generate_password(&self, length: usize) -> String {
         let mut chars = String::new();
         let mut password = String::with_capacity(length);
         let mut rng = rand::rng();
 
         if self.include_uppercase {
             chars.push_str(&self.characters.uppercase);
-            password.push(self.characters.uppercase.chars().nth(rng.random_range(0..self.characters.uppercase.len())).unwrap());
+            password.push(self.characters.uppercase.chars().choose(&mut rng).unwrap());
         }
         if self.include_lowercase {
             chars.push_str(&self.characters.lowercase);
-            password.push(self.characters.lowercase.chars().nth(rng.random_range(0..self.characters.lowercase.len())).unwrap());
+            password.push(self.characters.lowercase.chars().choose(&mut rng).unwrap());
         }
         if self.include_numbers {
             chars.push_str(&self.characters.numbers);
-            password.push(self.characters.numbers.chars().nth(rng.random_range(0..self.characters.numbers.len())).unwrap());
+            password.push(self.characters.numbers.chars().choose(&mut rng).unwrap());
         }
         if self.include_symbols {
             chars.push_str(&self.characters.symbols);
-            password.push(self.characters.symbols.chars().nth(rng.random_range(0..self.characters.symbols.len())).unwrap());
+            password.push(self.characters.symbols.chars().choose(&mut rng).unwrap());
         }
 
         for _ in password.len()..length {
-            let idx = rng.random_range(0..chars.len());
-            password.push(chars.chars().nth(idx).unwrap());
+            password.push(chars.chars().choose(&mut rng).unwrap());
         }
 
-        let mut password_chars: Vec<char> = password.chars().collect();
+        let mut password_chars: Vec<_> = password.chars().collect();
         password_chars.shuffle(&mut rng);
         password_chars.iter().collect()
     }
