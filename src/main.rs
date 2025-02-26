@@ -1,7 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use eframe::egui;
-use password_generator::{ComplexPasswordGenerator, PasswordGenerator};
+use password_generator::ComplexPasswordGenerator;
 mod password_generator;
 
 struct AppState {
@@ -12,7 +12,7 @@ struct AppState {
     include_symbols: bool,
     num_passwords: usize,
     generated_passwords: Vec<String>,
-    password_generator: Box<dyn PasswordGenerator>,
+    password_generator: Box<ComplexPasswordGenerator>,
     copied_password: Option<String>,
     all_passwords_copied: bool,
 }
